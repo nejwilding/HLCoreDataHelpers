@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-// Persistent Store Stype used
+//// Persistent Store Stype used
 public enum StoreType {
     
     // SQL based store type, associtaed with store url

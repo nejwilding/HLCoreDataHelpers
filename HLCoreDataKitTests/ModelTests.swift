@@ -7,9 +7,7 @@
 //
 
 import XCTest
-import ExampleModel
-
-@testable import HLCoreDataKit
+@testable import HLCoreDataHelpers
 
 class ModelTests: XCTestCase {
     

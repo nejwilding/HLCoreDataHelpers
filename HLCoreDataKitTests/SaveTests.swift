@@ -9,10 +9,6 @@
 import XCTest
 import CoreData
 
-import ExampleModel
-
-@testable import HLCoreDataKit
-
 class SaveTests: TestBuilds {
     
     func test_ThatSave_WithChanges_Succeeds() {

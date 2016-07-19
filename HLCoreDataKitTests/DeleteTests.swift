@@ -7,9 +7,6 @@
 //
 
 import XCTest
-import ExampleModel
-
-@testable import HLCoreDataKit
 
 class DeleteTests: TestBuilds {
 

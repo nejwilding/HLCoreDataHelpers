@@ -9,8 +9,7 @@
 import XCTest
 import CoreData
 import ExampleModel
-
-@testable import HLCoreDataKit
+@testable import HLCoreDataHelpers
 
 class DataStackTests: XCTestCase {
 
@@ -30,18 +29,18 @@ class DataStackTests: XCTestCase {
         
         let dataStack = CoreDataStack(model: sqlModel)
         XCTAssertNotNil(dataStack)
-        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType, "Main context should be primary context")
-        XCTAssertEqual(dataStack.writerObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType, "Writer context should be private")
+        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
+        XCTAssertEqual(dataStack.writerObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType, "Writer context should be private")
         
     }
     
     func test_ThatInMemoryStack_InitializesSuccessfully() {
-        let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType:  .InMemory)
+        let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType:  StoreType.inMemory)
         
         let dataStack = CoreDataStack(model: inMemoryModel)
         XCTAssertNotNil(dataStack)
-        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType, "Main context should be primary context")
-        XCTAssertEqual(dataStack.writerObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType, "Writer context should be private")
+        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
+        XCTAssertEqual(dataStack.writerObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType, "Writer context should be private")
         
     }
 

@@ -12,19 +12,21 @@ import CoreData
 extension NSManagedObjectContext {
     
     /**
-     Insert Managed Object conforming to ManagedObjectType into context
+     Create a private queued managed object context
      
-     - Returns: ManagedObject
+     - Returns: NSManagedObjectContext
      */
-    public func insertObject<A: ManagedObject where A: ManagedObjectType>() -> A {
-        guard let object = NSEntityDescription.insertNewObject(forEntityName: A.entityName, into: self) as? A else {
-            fatalError("Object type invalid")
-        }
-        
-        return object
+    public func createBackgroundContext() -> NSManagedObjectContext {
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.persistentStoreCoordinator = persistentStoreCoordinator
+        return context
     }
     
-    
+    /**
+     Save or rollback
+     
+     - Returns: Bool of save success
+     */
     public func saveOrRollback() -> Bool {
         do {
             try save()
@@ -35,101 +37,27 @@ extension NSManagedObjectContext {
         }
     }
     
-    public func performChanges(_ block: () -> ()) {
+    /**
+     Perform block function and save
+     */
+    public func performChanges(block: () -> ()) {
         perform {
             block()
             self.saveOrRollback()
         }
     }
     
-    // Alias for Save result
-    public typealias ContextSaveResult = (success: Bool, error: NSError?)
-    
-    //MARK: - Save
-    
-    /// Save context of managed Object
-    ///
-    /// - Parameter completion:       Closure return of ContextSaveResult
-    public func saveContext(_ completion: ((ContextSaveResult) -> Void)? = nil) {
-        
-        self.performAndWait({ () -> Void in
-            do {
-                if self.hasChanges {
-                    try self.save()
-                    
-                    guard self.parent?.hasChanges == true else {
-                        return
-                    }
-                    
-                    self.parent?.perform({ () -> Void in
-                        
-                        do {
-                            try self.parent?.save()
-                        }
-                        catch {
-                            assertionFailure("*** Error saving writer context \(error)")
-                        }
-                        
-                    })
-                    
-                    completion?((true, nil))
-                }
-            } catch let error as NSError? {
-                completion?((false, error))
-            }
-        })
-    }
-    
-    
-    // MARK: - Fetch Results
-    
-    /// fetch results count
-    ///
-    /// :param: request     Fetch Request containing search criteria
-    /// :para: inContext    Managed Object Context to perform fetch within
-    ///
-    /// :return: returns count of fetch as integer
-    public func fetchCount(_ request: NSFetchRequest<AnyObject>) throws -> Int {
-        
-        var error: NSError?
-        let count = self.count(for: request, error: &error)
-        
-        guard error == nil else {
-            throw error!
-        }
-        
-        return count
-        
-    }
-    
-    
-    /// Fetch results objects
-    ///
-    /// :param: request     Fetch Request containing search criteria
-    /// :param: inContext   Managed Object Context to perform fetch within
-    ///
-    /// :return: returns Fetch Result of generic Type
-    public func fetch <T: NSManagedObject> (_ request: FetchRequest<T>) throws ->  [T] {
-        
-        var results = [AnyObject]()
-        var caughtError: NSError?
-        
-        self.performAndWait {
-            do {
-                results = try self.fetch(request)
-            } catch {
-                caughtError = error as NSError
+    /**
+     Save current context
+     */
+    public func saveInContext() {
+        perform {
+            if self.hasChanges {
+                self.saveOrRollback()
             }
         }
-        
-        guard caughtError == nil else {
-            throw caughtError!
-        }
-        
-        return results as! [T]
     }
-    
-    
+ 
     // MARK: - Delete
     
     /// Deletes objects within a given managed object context

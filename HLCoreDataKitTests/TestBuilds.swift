@@ -8,13 +8,12 @@
 
 import XCTest
 import CoreData
-import ExampleModel
-
-@testable import HLCoreDataKit
+@testable import ExampleModel
+@testable import HLCoreDataHelpers
 
 class TestBuilds: XCTestCase {
     
-    let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType: .InMemory)
+    let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType: StoreType.inMemory)
     
     var dataStack: CoreDataStack!
     
@@ -31,7 +30,7 @@ class TestBuilds: XCTestCase {
         super.tearDown()
     }
     
-    func generatePersonObjectsInContext(_ context: NSManagedObjectContext, count: Int) -> [Person] {
+    func generatePersonObjectsInContext(_ context: NSManagedObjectContext? = dataStack.mainObjectContext, count: Int) -> [Person] {
         var people = [Person]()
         
         let half = count / 2

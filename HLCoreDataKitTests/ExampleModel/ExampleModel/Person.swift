@@ -8,37 +8,10 @@
 
 import Foundation
 import CoreData
+import HLCoreDataHelpers
 
-
-(Person)
+@objc(Person)
 public class Person: ManagedObject {
-    
-    // OLD - public static let modelEntityName = "Person"
-
-//    private convenience init(context: NSManagedObjectContext,
-//        firstname: String,
-//        surname: String,
-//        age: Int,
-//        gender: String) {
-//            
-//            let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: context)!
-//            
-//            self.init(entity: entity, insertIntoManagedObjectContext: context)
-//            
-//            self.firstname = firstname
-//            self.surname = surname
-//            self.age = age
-//            self.gender = gender
-//
-//    }
-//    
-//    
-//    public class func newPerson(context: NSManagedObjectContext, firstname: String, surname: String, age: Int, gender: String) -> Person {
-//        
-//        return Person(context: context, firstname: firstname, surname: surname, age: age, gender: gender)
-//    }
-//
-//    
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
@@ -51,7 +24,7 @@ public class Person: ManagedObject {
                                          age: Int,
                                          gender: String) -> Person {
         
-        let person:Person = moc.insertObject()
+        let person = Person(context: moc)
         person.firstname = firstname
         person.surname = surname
         person.age = age
@@ -65,10 +38,9 @@ public class Person: ManagedObject {
 
 
 extension Person: ManagedObjectType {
-    public static var entityName: String {
-        return "Person"
-    }
     
+    public typealias FetchRequestResult = Person
+
     public static var defaultSortDesciptors: [SortDescriptor] {
         return [SortDescriptor(key: "gender", ascending: true)]
     }

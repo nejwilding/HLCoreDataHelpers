@@ -8,24 +8,29 @@
 
 import XCTest
 import ExampleModel
-
-@testable import HLCoreDataKit
+@testable import HLCoreDataHelpers
 
 class FetchedResultsTests: TestBuilds {
     
-//    func test_ThatFetchedResultsController_Exists() {
+    
+    
+    
+    func test_ThatFetchedResultsController_Exists() {
+        
+        let stack = self.dataStack
+        
+        let count = 10
+        generatePersonObjectsInContext(stack.mainObjectContext, count: count)
+
+        let request = Person
 //        
-//        let stack = self.dataStack
-//        
-//        let count = 10
-//        generatePersonObjectsInContext(stack.mainObjectContext, count: count)
 //        let request = FetchRequest<Person>(entity: entity(name: Person.modelEntityName, context: stack.mainObjectContext), sorts: [sortDescriptor(key: "gender", ascending: false )])
-//        
-//        let resultsController = FetchedResultsController(request: request, inContext: stack.mainObjectContext)
-//        
-//        XCTAssertNotNil(resultsController)
-//    }
-//    
+        
+        let resultsController = FetchedResultsController(request: request, inContext: stack.mainObjectContext)
+        
+        XCTAssertNotNil(resultsController)
+    }
+//
 //    
 //    func test_ThatFetchedResultsController_Succeeds_WithNumberOfSections() {
 //        

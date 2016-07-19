@@ -11,8 +11,9 @@ import CoreData
 public class ManagedObject: NSManagedObject { }
 
 public protocol ManagedObjectType: class {
-    static var entityName: String { get }
-    static var defaultSortDesciptors: [SortDescriptor] { get }
+    associatedtype FetchRequestResult: NSFetchRequestResult
+    static var defaultSortDescriptors: [SortDescriptor] { get }
+    static var defaultPredicate: Predicate { get }
 }
 
 extension ManagedObjectType {
@@ -21,9 +22,37 @@ extension ManagedObjectType {
         return []
     }
     
-    public static var sortedFetchRequest: NSFetchRequest<AnyObject> {
-        let request = NSFetchRequest(entityName: entityName)
-        request.sortDescriptors = defaultSortDesciptors
+    public static var defaultPredicate: Predicate {
+        return Predicate(value: true)
+    }
+    
+    public static var sortedFetchRequest: NSFetchRequest<FetchRequestResult> {
+        let request: NSFetchRequest<FetchRequestResult> = NSFetchRequest()
+        request.predicate = defaultPredicate
+        request.sortDescriptors = defaultSortDescriptors
+        return request
+    }
+    
+    public static func sortedFetchRequestWithPredicate(predicate: Predicate) -> NSFetchRequest<FetchRequestResult> {
+        let request = sortedFetchRequest
+        guard let existingPredicate = request.predicate else {
+            fatalError("Must have default predicate")
+        }
+        
+        request.predicate = CompoundPredicate(andPredicateWithSubpredicates: [existingPredicate, predicate])
+        return request
+    }
+    
+    public static func sortedFetchRequestWithMultiplePredicates(predicates: [Predicate]) -> NSFetchRequest<FetchRequestResult> {
+        let request = sortedFetchRequest
+        guard let existingPredicate = request.predicate else {
+            fatalError("Must have default predicate")
+        }
+        
+        var predicateList = [existingPredicate]
+        predicateList.append(contentsOf: predicates)
+        
+        request.predicate = CompoundPredicate(andPredicateWithSubpredicates: predicateList)
         return request
     }
 }
