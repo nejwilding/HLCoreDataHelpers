@@ -20,7 +20,6 @@ public final class CoreDataStack {
     
     //properties
     public let mainObjectContext: NSManagedObjectContext
-    public let writerObjectContext: NSManagedObjectContext
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let model: CoreDataModel
 
@@ -40,13 +39,9 @@ public final class CoreDataStack {
         self.model = model
         self.persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.managedObjectModel)
         
-        // create Writer Object Context as parent
-        writerObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        writerObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        
         // create child object context to used by public
         mainObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        mainObjectContext.parent = self.writerObjectContext
+        mainObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         
         // Persistent Store default options
         let options = [NSMigratePersistentStoresAutomaticallyOption: true,

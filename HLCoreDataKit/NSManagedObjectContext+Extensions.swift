@@ -23,6 +23,16 @@ extension NSManagedObjectContext {
     }
     
     /**
+     Insert Managed Object conforming to ManagedObjectType into context
+     
+     - Returns: ManagedObject
+     */
+    public func insertObject<A: ManagedObject where A: ManagedObjectType>() -> A {
+    	let object = A(context: self)
+        return object
+    }
+    
+    /**
      Save or rollback
      
      - Returns: Bool of save success
@@ -40,7 +50,7 @@ extension NSManagedObjectContext {
     /**
      Perform block function and save
      */
-    public func performChanges(block: () -> ()) {
+    public func performChanges(_ block: () -> ()) {
         perform {
             block()
             self.saveOrRollback()

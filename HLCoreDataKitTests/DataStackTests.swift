@@ -30,7 +30,6 @@ class DataStackTests: XCTestCase {
         let dataStack = CoreDataStack(model: sqlModel)
         XCTAssertNotNil(dataStack)
         XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
-        XCTAssertEqual(dataStack.writerObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType, "Writer context should be private")
         
     }
     
@@ -40,7 +39,6 @@ class DataStackTests: XCTestCase {
         let dataStack = CoreDataStack(model: inMemoryModel)
         XCTAssertNotNil(dataStack)
         XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
-        XCTAssertEqual(dataStack.writerObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType, "Writer context should be private")
         
     }
 

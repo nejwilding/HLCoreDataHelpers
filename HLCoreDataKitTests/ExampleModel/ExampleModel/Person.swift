@@ -24,13 +24,12 @@ public class Person: ManagedObject {
                                          age: Int,
                                          gender: String) -> Person {
         
-        let person = Person(context: moc)
+        let person: Person = Person(context:moc)
         person.firstname = firstname
         person.surname = surname
         person.age = age
         person.gender = gender
         
-        print("YYYY \(person)")
         return person
     }
 }
@@ -39,16 +38,20 @@ public class Person: ManagedObject {
 
 extension Person: ManagedObjectType {
     
-    public typealias FetchRequestResult = Person
-
     public static var defaultSortDesciptors: [SortDescriptor] {
         return [SortDescriptor(key: "gender", ascending: true)]
+    }
+    
+    public static var defaultPredicate: Predicate {
+        let predicate = Predicate(format: "%K == [n]%ld", Person.Keys.age.rawValue, 10)
+        return predicate
     }
 }
 
 extension Person {
     public enum Keys: String {
         case firstname
+        case age
     }
 }
 

@@ -11,7 +11,7 @@ import CoreData
 public class ManagedObject: NSManagedObject { }
 
 public protocol ManagedObjectType: class {
-    associatedtype FetchRequestResult: NSFetchRequestResult
+    //associatedtype FetchRequestResult: NSFetchRequestResult
     static var defaultSortDescriptors: [SortDescriptor] { get }
     static var defaultPredicate: Predicate { get }
 }
@@ -25,16 +25,21 @@ extension ManagedObjectType {
     public static var defaultPredicate: Predicate {
         return Predicate(value: true)
     }
-    
-    public static var sortedFetchRequest: NSFetchRequest<FetchRequestResult> {
-        let request: NSFetchRequest<FetchRequestResult> = NSFetchRequest()
+}
+
+extension ManagedObjectType {
+
+    public static func sortedFetchRequest<T: NSManagedObject>() -> NSFetchRequest<T> {
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(T.self))
         request.predicate = defaultPredicate
+        print(defaultPredicate)
         request.sortDescriptors = defaultSortDescriptors
         return request
+        
     }
     
-    public static func sortedFetchRequestWithPredicate(predicate: Predicate) -> NSFetchRequest<FetchRequestResult> {
-        let request = sortedFetchRequest
+    public static func sortedFetchRequestWithPredicate<T: NSManagedObject>(_ predicate: Predicate) -> NSFetchRequest<T> {
+        let request: NSFetchRequest<T> = sortedFetchRequest()
         guard let existingPredicate = request.predicate else {
             fatalError("Must have default predicate")
         }
@@ -43,8 +48,8 @@ extension ManagedObjectType {
         return request
     }
     
-    public static func sortedFetchRequestWithMultiplePredicates(predicates: [Predicate]) -> NSFetchRequest<FetchRequestResult> {
-        let request = sortedFetchRequest
+    public static func sortedFetchRequestWithMultiplePredicates<T: NSManagedObject>(_ predicates: [Predicate]) -> NSFetchRequest<T> {
+        let request: NSFetchRequest<T> = sortedFetchRequest()
         guard let existingPredicate = request.predicate else {
             fatalError("Must have default predicate")
         }
@@ -56,3 +61,4 @@ extension ManagedObjectType {
         return request
     }
 }
+

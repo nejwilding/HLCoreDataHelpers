@@ -65,7 +65,7 @@ public struct CoreDataModel {
     ///                             Default - MainBundle
     /// :param: storeDirectoryURL   Directory in which model is located
     ///                             Defaults to document directory
-   public init(name: String, bundle: Bundle = Bundle.main(), storeType: StoreType = .sqLite(applicationDocumentsDirectory()) ) {
+   public init(name: String, bundle: Bundle = Bundle.main, storeType: StoreType = .sqLite(applicationDocumentsDirectory()) ) {
         self.name = name
         self.bundle = bundle
         self.storeType = storeType
@@ -85,12 +85,12 @@ public struct CoreDataModel {
             return
         }
         
-       if !FileManager.default().fileExists(atPath: storeURL.path!) {
+       if !FileManager.default.fileExists(atPath: storeURL.path!) {
 
-            let preloadPath = Bundle.main().pathForResource(name, ofType: "sqlite")
+            let preloadPath = Bundle.main.pathForResource(name, ofType: "sqlite")
             
             do {
-                try FileManager.default().copyItem(atPath: preloadPath!, toPath: storeURL.path!)
+                try FileManager.default.copyItem(atPath: preloadPath!, toPath: storeURL.path!)
                 completion((true, nil))
             } catch let error as NSError? {
                 completion((false, error))
@@ -107,7 +107,7 @@ public struct CoreDataModel {
 private func applicationDocumentsDirectory() -> URL {
     
     do {
-        return try FileManager.default().urlForDirectory(
+        return try FileManager.default.urlForDirectory(
             .documentDirectory,
             in: .userDomainMask,
             appropriateFor: nil,

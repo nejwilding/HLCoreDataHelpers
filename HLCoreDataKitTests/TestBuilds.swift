@@ -13,52 +13,56 @@ import CoreData
 
 class TestBuilds: XCTestCase {
     
-    let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType: StoreType.inMemory)
-    
-    var dataStack: CoreDataStack!
+    var dataStack: CoreDataStack! = nil
     
     override func setUp() {
         super.setUp()
         
+        let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType: StoreType.inMemory)
         dataStack = CoreDataStack(model: inMemoryModel)
         
     }
     
     override func tearDown() {
-       
         dataStack = nil
         super.tearDown()
     }
     
-    func generatePersonObjectsInContext(_ context: NSManagedObjectContext? = dataStack.mainObjectContext, count: Int) -> [Person] {
-        var people = [Person]()
+    func generatePersonObjects(count: Int) -> [Person] {
+        var people: [Person] = []
         
-        let half = count / 2
-        for _ in 0..<half {
-            
-            let p = Person.insertIntoContext(context,
+        let third = count / 3
+        for _ in 0..<third {
+
+            let p = Person.insertIntoContext(dataStack.mainObjectContext,
                     firstname: "Mike",
                     surname: "Jones",
                     age: 10,
                     gender: "male")
-                
-                print("xxxx \(p)")
-                people.append(p)
+            people.append(p)
 
         }
         
-        for _ in 0..<half {
+        for _ in 0..<third {
             
-            let p = Person.insertIntoContext(context,
+            let p = Person.insertIntoContext(dataStack.mainObjectContext,
                     firstname: "Shauna",
                     surname: "Collett",
                     age: 10,
                     gender: "female")
                 people.append(p)
-
         }
         
-        print("XXXX \(people)")
+        for _ in 0..<third {
+            
+            let p = Person.insertIntoContext(dataStack.mainObjectContext,
+                                             firstname: "Maria",
+                                             surname: "Sanders",
+                                             age: 5,
+                                             gender: "female")
+            people.append(p)
+        }
+        
         return people
     }
 

@@ -8,94 +8,107 @@
 
 import XCTest
 import CoreData
-import ExampleModel
-
+@testable import ExampleModel
 @testable import HLCoreDataHelpers
 
 class FetchTests: TestBuilds {
     
-    let managedObjectContext = dataStack.mainObjectContext
-
-    
     func test_ThatFetchRequests_Success_WithManyObjects() {
-        
+        // given
+        let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjectsInContext(managedObjectContext, count: count)
+        _ = generatePersonObjects(count: count)
         
-        let request = Person.sortedFetchRequest
+        // when
+        let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
         print(request)
-        //request.fetchBatchSize = 10
-        let results = try! managedObjectContext.fetch(request)
+        let results = try! stack.mainObjectContext.fetch(request)
         
-        XCTAssertEqual(results.count, count, "Fetch should return \(count) objects")
-//        managedObjectContext. { result in
-//            XCTAssertTrue(result.success == true, "Should return as a success")
-//        }
+        // then
+        let predicateCount = 6
+        XCTAssertEqual(results.count, predicateCount, "Fetch should return \(count) objects")
+        stack.mainObjectContext.saveOrRollback() { result in
+            XCTAssertTrue(result.success == true, "Should return as a success")
+        }
     }
     
     func test_ThatFetchRequest_Succeeds_WithObject() {
-        
+        // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjectsInContext(stack.mainObjectContext, count: count)
+        _ = generatePersonObjects(count: count)
         
         let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 12, gender: "male")
         
-        let request = Person.sortedFetchRequest
+        // when
+        let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
         request.predicate = Predicate(format: "%K == [n]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
         
-        let results = try! managedObjectContext.fetch(request)
+        let results = try! stack.mainObjectContext.fetch(request)
         
+        // then
         XCTAssertEqual(results.count, 1, "Fetch should return just one result")
     }
     
     func test_ThatFetchRequest_Succeeds_WithoutObjects() {
+        // given
+        let stack = self.dataStack!
+
+        // when
+        let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
+        let results = try! stack.mainObjectContext.fetch(request)
         
-        let request = Person.sortedFetchRequest
-        let results = try! managedObjectContext.fetch(request)
-        
+        // then
         XCTAssertEqual(results.count, 0, "Fetch reesults should equal 0")
     }
     
     func test_ThatFetchRequest_Succeeds_WithFetchLimit() {
-        
+        // given
+        let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjectsInContext(count: count)
+        _ = generatePersonObjects(count: count)
         
-        let request = Person.sortedFetchRequest
+        // when
+        let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
         request.fetchBatchSize = 5
         request.fetchLimit = 5
         
-        let results = try! managedObjectContext.fetch(request)
+        let results = try! stack.mainObjectContext.fetch(request)
         
+        // then
         XCTAssertEqual(results.count, 5, "Fetch should return \(5) results")
-        
     }
     
     func test_ThatFetchRequest_Succeeds_WithSortascending() {
-        
+        // given
+        let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjectsInContext(managedObjectContext, count: count)
+        _ = generatePersonObjects(count: count)
         
-        let request = Person.sortedFetchRequest
+        // when
+        let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
         
-        let results = try! managedObjectContext.fetch(request)
+        let results = try! stack.mainObjectContext.fetch(request)
     
+        // then
         XCTAssertEqual(results.first?.gender, "female", "Fetch should sort ascending and show Female first")
     }
 
     func test_ThatFetchRequest_Suceeds_OnCount() {
+        // given
         let stack = self.dataStack!
         
         let count = 10
-        _ = generatePersonObjectsInContext(stack.mainObjectContext, count: count)
+        _ = generatePersonObjects(count: count)
         
+        // when
         let fetchCount = 5
-        let request = Person.sortedFetchRequest
+        let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
         request.fetchLimit = 5
-        let resultCount = try! managedObjectContext.fetch(request)
+        let resultCount = try! stack.mainObjectContext.fetch(request)
         
-        XCTAssertEqual(resultCount, fetchCount, "Fetch should return \(fetchCount) results")
+        // then
+        XCTAssertEqual(resultCount.count, fetchCount, "Fetch should return \(fetchCount) results")
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import ExampleModel
 @testable import HLCoreDataHelpers
 
 class ModelTests: XCTestCase {
@@ -29,13 +30,12 @@ class ModelTests: XCTestCase {
         
         XCTAssert(model.name == modelName, "Model name should equal model setting")
         XCTAssert(model.bundle == modelBundle , "Should default to main bundle")
-        //XCTAssertEqual(model.storeType, model.storeDirectoryUrl.URLByAppendingPathComponent("\(ModelName.Person.rawValue).sqlite"), "Sql file should equal model name")
-        //XCTAssertNotNil(model.storeDirectoryUrl)
+
+        XCTAssertNotNil(model.storeURL)
         
         let storeComponents = model.storeURL!.pathComponents!
         XCTAssertEqual(String(storeComponents.last!), model.databaseFileName)
         XCTAssertEqual(String(storeComponents[storeComponents.count - 2]), "Documents")
-        XCTAssertTrue(model.storeURL!.fileURL)
         
         let modelURLComponents = model.modelURL.pathComponents!
         XCTAssertEqual(String(modelURLComponents.last!), model.name + ".momd")
