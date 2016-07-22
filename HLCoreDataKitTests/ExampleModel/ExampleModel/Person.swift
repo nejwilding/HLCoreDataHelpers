@@ -38,8 +38,8 @@ public class Person: ManagedObject {
 
 extension Person: ManagedObjectType {
     
-    public static var defaultSortDesciptors: [SortDescriptor] {
-        return [SortDescriptor(key: "gender", ascending: true)]
+    public static var defaultSortDescriptors: [SortDescriptor] {
+        return [SortDescriptor(key: Person.Keys.gender.rawValue, ascending: true)]
     }
     
     public static var defaultPredicate: Predicate {
@@ -52,6 +52,7 @@ extension Person {
     public enum Keys: String {
         case firstname
         case age
+        case gender
     }
 }
 

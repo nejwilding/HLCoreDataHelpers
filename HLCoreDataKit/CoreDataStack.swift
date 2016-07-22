@@ -18,7 +18,8 @@ public typealias ChildManagedObjectContact = NSManagedObjectContext
 /// Creates parent ObjectContext of writer with a child of managedObjectContext
 public final class CoreDataStack {
     
-    //properties
+    // MARK: - Properties
+    
     public let mainObjectContext: NSManagedObjectContext
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let model: CoreDataModel
@@ -26,18 +27,20 @@ public final class CoreDataStack {
     
     // MARK: Initializtion
     
-    /// Contruscts a new CoreDataStack, with model, storeType, and concurentType
-    ///
-    /// :param model            Data model of the current stack
-    /// :param storeType        StoreStype of PersistentStoreCoordinator. Default is SQLLiteStoeType
-    /// :param concurrentType   ConcurrencyType of Store. Default is on the MainQueue
-    ///
-    /// :returns A new CoreDataStack
+    /**
+    Constructs a new CoreDataStack, with model, storeType, and concurentType
+
+    - Parameter model:            Data model of the current stack
+    - Parameter storeType:        StoreStype of PersistentStoreCoordinator. Default is SQLLiteStoeType
+    - Parameter concurrentType:   ConcurrencyType of Store. Default is on the MainQueue
+ 
+    -Returns: A new CoreDataStack
+    */
     public init(model: CoreDataModel, concurrentType : NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType) {
 
         // set up model and persistentStore
         self.model = model
-        self.persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.managedObjectModel)
+        self.persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.modelVersion.managedObjectModel)
         
         // create child object context to used by public
         mainObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
@@ -59,14 +62,14 @@ public final class CoreDataStack {
     
     // MARK: - Child Managed Object Context
     
-    /// Creates a new Managed Object Context with a parent of ManagedObjectContext
-    ///
-    /// :param concurencyType   ConcurrencyType of Store. 
-    ///                         Default is on the MainQueue
-    /// :param mergePolicy      The mergepolicy to use
-    ///                         Defaults to MergeByPropertyObjectTrumpMergePolicyType
-    ///
-    /// :returns A new managed object context which is a child
+    /**
+     Creates a new Managed Object Context with a parent of ManagedObjectContext
+ 
+    - Parameter concurencyType:   ConcurrencyType of Store. - Default is on the MainQueue
+    - Parameter mergePolicy:      The mergepolicy to use - Defaults to MergeByPropertyObjectTrumpMergePolicyType
+
+    - Returns: A new managed object context which is a child
+     */
     public func childManagedObjectContext(_ concurrenyType: NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType, mergePolicyType: NSMergePolicyType = .mergeByPropertyObjectTrumpMergePolicyType) -> ChildManagedObjectContact {
         
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: concurrenyType)

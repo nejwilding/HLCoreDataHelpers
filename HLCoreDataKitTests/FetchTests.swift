@@ -14,6 +14,7 @@ import CoreData
 class FetchTests: TestBuilds {
     
     func test_ThatFetchRequests_Success_WithManyObjects() {
+        
         // given
         let stack = self.dataStack!
         let count = 10
@@ -27,9 +28,7 @@ class FetchTests: TestBuilds {
         // then
         let predicateCount = 6
         XCTAssertEqual(results.count, predicateCount, "Fetch should return \(count) objects")
-        stack.mainObjectContext.saveOrRollback() { result in
-            XCTAssertTrue(result.success == true, "Should return as a success")
-        }
+
     }
     
     func test_ThatFetchRequest_Succeeds_WithObject() {
@@ -38,17 +37,19 @@ class FetchTests: TestBuilds {
         let count = 10
         _ = generatePersonObjects(count: count)
         
-        let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 12, gender: "male")
+        let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 10, gender: "male")
+        stack.mainObjectContext.saveInContext()
         
         // when
-        let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
-        request.predicate = Predicate(format: "%K == [n]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
+        let predicate = Predicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
+        let request: NSFetchRequest<Person> = Person.sortedFetchRequest(withPredicate: predicate)
         
         let results = try! stack.mainObjectContext.fetch(request)
         
         // then
         XCTAssertEqual(results.count, 1, "Fetch should return just one result")
     }
+    
     
     func test_ThatFetchRequest_Succeeds_WithoutObjects() {
         // given
@@ -87,7 +88,7 @@ class FetchTests: TestBuilds {
         
         // when
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
-        
+        print(request)
         let results = try! stack.mainObjectContext.fetch(request)
     
         // then

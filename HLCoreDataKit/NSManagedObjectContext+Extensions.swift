@@ -37,13 +37,13 @@ extension NSManagedObjectContext {
      
      - Returns: Bool of save success
      */
-    public func saveOrRollback() -> Bool {
+    public func saveOrRollback() -> CoreDataSaveResult {
         do {
             try save()
-            return true
-        } catch {
+            return .success
+        } catch(let error) {
             rollback()
-            return false
+            return .failure(error as NSError)
         }
     }
     
@@ -60,10 +60,11 @@ extension NSManagedObjectContext {
     /**
      Save current context
      */
-    public func saveInContext() {
+    public func saveInContext(completion: ((CoreDataSaveResult) -> Void)? = nil) {
         perform {
             if self.hasChanges {
-                self.saveOrRollback()
+                let result = self.saveOrRollback()
+                completion?(result)
             }
         }
     }

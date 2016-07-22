@@ -8,6 +8,7 @@
 
 import XCTest
 import CoreData
+@testable import HLCoreDataHelpers
 
 class SaveTests: TestBuilds {
     
@@ -24,8 +25,14 @@ class SaveTests: TestBuilds {
             return true
         }
         
-        stack.mainObjectContext.saveInContext()
+        let saveExpectation = expectation(description: "SaveExpected")
         
+        // when - attempting save
+        stack.mainObjectContext.saveInContext { (result) in
+            XCTAssertTrue(result == .success, "Save should not show error")
+            saveExpectation.fulfill()
+        }
+                
         waitForExpectations(timeout: 5.0, handler: { (error) -> Void in
             XCTAssertNil(error, "Error should be nil")
             XCTAssertTrue(didSaveMain)
@@ -34,7 +41,7 @@ class SaveTests: TestBuilds {
     }
 
     
-    func test_ThatSave_WithoutChanges_Suceeds() {
+    func test_ThatSave_WithoutChanges_Succeeds() {
         
         let stack = self.dataStack!
         var didCallCompletion  = false
