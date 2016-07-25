@@ -55,9 +55,13 @@ public final class CoreDataStack {
         } catch let error as NSError {
             assertionFailure("*** Error adding persistent store \(error)")
         }
-
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(CoreDataStack.contextDidSaveNotification(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     
     // MARK: - Child Managed Object Context
@@ -77,7 +81,29 @@ public final class CoreDataStack {
         childManagedObjectContext.mergePolicy = NSMergePolicy(merge: mergePolicyType)
         
         return childManagedObjectContext
+    }
+    
+    
+    // MARK: - Managed Object Context Save Notification
+    
+    @objc func contextDidSaveNotification(notification: Notification) {
+        print("xxxxxxxxxxxxxxxxxxxxx")
+
+        guard let context = notification.object as? NSManagedObjectContext else {
+            assertionFailure("*** Error \(notification)")
+            return
+        }
+
+        print(context.registeredObjects.count)
+        print(context.name)
         
+        if context !== self.mainObjectContext {
+            print("MERGING MERGING - Save Detected Outside Thread Main")
+
+            mainObjectContext.perform {
+                self.mainObjectContext.mergeChanges(fromContextDidSave: notification)
+            }
+        }
     }
     
 }

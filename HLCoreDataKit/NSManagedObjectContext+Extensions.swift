@@ -53,7 +53,8 @@ extension NSManagedObjectContext {
     public func performChanges(_ block: () -> ()) {
         perform {
             block()
-            self.saveOrRollback()
+            _ = self.saveOrRollback()
+
         }
     }
     
