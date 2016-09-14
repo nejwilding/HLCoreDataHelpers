@@ -18,7 +18,7 @@ class FetchTests: TestBuilds {
         // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         // when
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
@@ -35,13 +35,13 @@ class FetchTests: TestBuilds {
         // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 10, gender: "male")
         stack.mainObjectContext.saveInContext()
         
         // when
-        let predicate = Predicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
+        let predicate = NSPredicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest(withPredicate: predicate)
         
         let results = try! stack.mainObjectContext.fetch(request)
@@ -67,7 +67,7 @@ class FetchTests: TestBuilds {
         // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         // when
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
@@ -84,7 +84,7 @@ class FetchTests: TestBuilds {
         // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         // when
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
@@ -100,7 +100,7 @@ class FetchTests: TestBuilds {
         let stack = self.dataStack!
         
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         // when
         let fetchCount = 5

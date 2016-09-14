@@ -28,7 +28,7 @@ class TestBuilds: XCTestCase {
         super.tearDown()
     }
     
-    func generatePersonObjects(count: Int) -> [Person] {
+    func generatePersonObjects(withCount count: Int) -> [Person] {
         var people: [Person] = []
         
         let third = count / 3

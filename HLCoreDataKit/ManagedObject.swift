@@ -8,29 +8,29 @@
 
 import CoreData
 
-public class ManagedObject: NSManagedObject { }
+open class ManagedObject: NSManagedObject { }
 
 public protocol ManagedObjectType: class {
     //associatedtype FetchRequestResult: NSFetchRequestResult
-    static var defaultSortDescriptors: [SortDescriptor] { get }
-    static var defaultPredicate: Predicate { get }
+    static var defaultSortDescriptors: [NSSortDescriptor] { get }
+    static var defaultPredicate: NSPredicate { get }
 }
 
 extension ManagedObjectType {
     
-    public static var defaultSortDescriptors: [SortDescriptor] {
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
         return []
     }
     
-    public static var defaultPredicate: Predicate {
-        return Predicate(value: true)
+    public static var defaultPredicate: NSPredicate {
+        return NSPredicate(value: true)
     }
 }
 
 extension ManagedObjectType {
 
     public static func sortedFetchRequest<T: NSManagedObject>() -> NSFetchRequest<T> {
-        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(T.self))
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
         request.predicate = defaultPredicate
         request.sortDescriptors = defaultSortDescriptors
 
@@ -38,17 +38,17 @@ extension ManagedObjectType {
         
     }
     
-    public static func sortedFetchRequest<T: NSManagedObject>(withPredicate predicate: Predicate) -> NSFetchRequest<T> {
+    public static func sortedFetchRequest<T: NSManagedObject>(withPredicate predicate: NSPredicate) -> NSFetchRequest<T> {
         let request: NSFetchRequest<T> = sortedFetchRequest()
         guard let existingPredicate = request.predicate else {
             fatalError("Must have default predicate")
         }
         
-        request.predicate = CompoundPredicate(andPredicateWithSubpredicates: [existingPredicate, predicate])
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [existingPredicate, predicate])
         return request
     }
     
-    public static func sortedFetchRequest<T: NSManagedObject>(withMultiplePredicates predicates: [Predicate]) -> NSFetchRequest<T> {
+    public static func sortedFetchRequest<T: NSManagedObject>(withMultiplePredicates predicates: [NSPredicate]) -> NSFetchRequest<T> {
         let request: NSFetchRequest<T> = sortedFetchRequest()
         guard let existingPredicate = request.predicate else {
             fatalError("Must have default predicate")
@@ -57,14 +57,14 @@ extension ManagedObjectType {
         var predicateList = [existingPredicate]
         predicateList.append(contentsOf: predicates)
         
-        request.predicate = CompoundPredicate(andPredicateWithSubpredicates: predicateList)
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicateList)
         return request
     }
 }
 
 extension ManagedObjectType where Self: ManagedObject {
     
-    public static func findOrCreate(inContext moc: NSManagedObjectContext, matchingPredicate predicate: Predicate, configure: (Self) -> ()) -> Self {
+    public static func findOrCreate(inContext moc: NSManagedObjectContext, matchingPredicate predicate: NSPredicate, configure: (Self) -> ()) -> Self {
         guard let object = findOrFetch(inContext: moc, matchingPredicate: predicate) else {
             let newObject: Self = moc.insertObject()
             configure(newObject)
@@ -74,10 +74,10 @@ extension ManagedObjectType where Self: ManagedObject {
     }
     
     //TOFIX: swift 3 xcode issue
-    public static func findOrFetch(inContext moc: NSManagedObjectContext, matchingPredicate predicate: Predicate) -> Self? {
-        guard let object = materializedObjectInContext(moc: moc, matchingPredicate: predicate) else {
+    public static func findOrFetch(inContext moc: NSManagedObjectContext, matchingPredicate predicate: NSPredicate) -> Self? {
+        guard let object = materializedObjectInContext(moc, matchingPredicate: predicate) else {
             typealias T = Self
-            let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(T.self))
+            let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             guard let result = try? moc.fetch(request) else {
@@ -88,7 +88,7 @@ extension ManagedObjectType where Self: ManagedObject {
         return object
     }
     
-    public static func materializedObjectInContext(moc: NSManagedObjectContext, matchingPredicate predicate: Predicate) -> Self? {
+    public static func materializedObjectInContext(_ moc: NSManagedObjectContext, matchingPredicate predicate: NSPredicate) -> Self? {
         for obj in moc.registeredObjects where !obj.isFault {
             guard let res = obj as? Self, predicate.evaluate(with: res) else { continue }
             return res
@@ -99,16 +99,16 @@ extension ManagedObjectType where Self: ManagedObject {
     public static func fetch(inContext moc: NSManagedObjectContext, configurationBlock: (NSFetchRequest<Self>) -> ()) -> [Self] {
         
         typealias T = Self
-        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(T.self))
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
         configurationBlock(request)
         guard let result = try? moc.fetch(request) else {
             fatalError("Fetched objects wrong type") }
         return result
    }
     
-    public static func count(inContext moc: NSManagedObjectContext, configurationBlock: @noescape (NSFetchRequest<Self>) -> ()) -> Int {
+    public static func count(inContext moc: NSManagedObjectContext, configurationBlock: (NSFetchRequest<Self>) -> ()) -> Int {
         typealias T = Self
-        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(T.self))
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
         configurationBlock(request)
 
         do {
@@ -120,9 +120,9 @@ extension ManagedObjectType where Self: ManagedObject {
     }
     
     //TOFIX: swift 3 xcode issue
-    public static func lastModified(inContext moc: NSManagedObjectContext, configurationBlock: @noescape (NSFetchRequest<Self>) -> ()) -> Self? {
+    public static func lastModified(inContext moc: NSManagedObjectContext, configurationBlock: (NSFetchRequest<Self>) -> ()) -> Self? {
         typealias T = Self
-        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(T.self))
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
         request.fetchLimit = 1
         request.returnsObjectsAsFaults = false
         configurationBlock(request)

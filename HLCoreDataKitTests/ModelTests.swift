@@ -35,11 +35,11 @@ class ModelTests: XCTestCase {
 
         XCTAssertNotNil(model.storeURL)
         
-        let storeComponents = model.storeURL!.pathComponents!
+        let storeComponents = model.storeURL!.pathComponents
         XCTAssertEqual(String(storeComponents.last!), model.databaseFileName)
         XCTAssertEqual(String(storeComponents[storeComponents.count - 2]), "Documents")
         
-        let modelURLComponents = model.modelVersion.modelURL.pathComponents!
+        let modelURLComponents = model.modelVersion.modelURL.pathComponents
         XCTAssertEqual(String(modelURLComponents.last!), modelName + ".momd")
         
         

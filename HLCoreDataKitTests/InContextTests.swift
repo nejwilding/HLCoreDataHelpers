@@ -17,13 +17,13 @@ class InContextTests: TestBuilds {
         // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 10, gender: "male")
         stack.mainObjectContext.saveInContext()
         
         // when
-        let predicate = Predicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
+        let predicate = NSPredicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
         
         let matches = Person.fetch(inContext:stack.mainObjectContext) { request in
             request.predicate = predicate
@@ -37,13 +37,13 @@ class InContextTests: TestBuilds {
         // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 10, gender: "male")
         stack.mainObjectContext.saveInContext()
         
         // when
-        let predicate = Predicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
+        let predicate = NSPredicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
         
         let returnCount = Person.count(inContext:stack.mainObjectContext) { request in
             request.predicate = predicate
@@ -57,13 +57,13 @@ class InContextTests: TestBuilds {
         // given
         let stack = self.dataStack!
         let count = 10
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         
         let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 10, gender: "male")
         stack.mainObjectContext.saveInContext()
         
         // when
-        let predicate = Predicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
+        let predicate = NSPredicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
         
         let result = Person.lastModified(inContext:stack.mainObjectContext) { request in
             request.predicate = predicate

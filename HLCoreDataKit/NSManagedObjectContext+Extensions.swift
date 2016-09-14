@@ -27,7 +27,7 @@ extension NSManagedObjectContext {
      
      - Returns: ManagedObject
      */
-    public func insertObject<A: ManagedObject where A: ManagedObjectType>() -> A {
+    public func insertObject<A: ManagedObject>() -> A where A: ManagedObjectType {
     	let object = A(context: self)
         return object
     }
@@ -50,7 +50,7 @@ extension NSManagedObjectContext {
     /**
      Perform block function and save
      */
-    public func performChanges(_ block: () -> ()) {
+    public func performChanges(_ block: @escaping () -> ()) {
         perform {
             block()
             _ = self.saveOrRollback()
@@ -61,7 +61,7 @@ extension NSManagedObjectContext {
     /**
      Save current context
      */
-    public func saveInContext(completion: ((CoreDataSaveResult) -> Void)? = nil) {
+    public func saveInContext(_ completion: ((CoreDataSaveResult) -> Void)? = nil) {
         perform {
             if self.hasChanges {
                 let result = self.saveOrRollback()

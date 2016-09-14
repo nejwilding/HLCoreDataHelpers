@@ -21,8 +21,8 @@ public final class CoreDataStack {
     // MARK: - Properties
     
     public let mainObjectContext: NSManagedObjectContext
-    private let persistentStoreCoordinator: NSPersistentStoreCoordinator
-    private let model: CoreDataModel
+    fileprivate let persistentStoreCoordinator: NSPersistentStoreCoordinator
+    fileprivate let model: CoreDataModel
 
     
     // MARK: Initializtion

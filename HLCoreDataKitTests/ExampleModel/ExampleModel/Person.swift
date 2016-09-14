@@ -13,12 +13,12 @@ import HLCoreDataHelpers
 @objc(Person)
 public class Person: ManagedObject {
     
-    public override func awakeFromInsert() {
+    open override func awakeFromInsert() {
         super.awakeFromInsert()
         age = 99
     }
     
-    public static func insertIntoContext(_ moc: NSManagedObjectContext,
+    open static func insertIntoContext(_ moc: NSManagedObjectContext,
                                          firstname: String,
                                          surname: String,
                                          age: Int,
@@ -27,7 +27,7 @@ public class Person: ManagedObject {
         let person: Person = Person(context:moc)
         person.firstname = firstname
         person.surname = surname
-        person.age = age
+        person.age = age as NSNumber?
         person.gender = gender
         
         return person
@@ -36,14 +36,15 @@ public class Person: ManagedObject {
 
 
 
+
 extension Person: ManagedObjectType {
     
-    public static var defaultSortDescriptors: [SortDescriptor] {
-        return [SortDescriptor(key: Person.Keys.gender.rawValue, ascending: true)]
+    public static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: Person.Keys.gender.rawValue, ascending: true)]
     }
     
-    public static var defaultPredicate: Predicate {
-        let predicate = Predicate(format: "%K == [n]%ld", Person.Keys.age.rawValue, 10)
+    public static var defaultPredicate: NSPredicate {
+        let predicate = NSPredicate(format: "%K == [n]%ld", Person.Keys.age.rawValue, 10)
         return predicate
     }
 }

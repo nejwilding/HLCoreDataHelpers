@@ -19,7 +19,7 @@ class DeleteTests: TestBuilds {
         
         let count = 10
         let predicateValue = 6
-        let objects = generatePersonObjects(count: count)
+        let objects = generatePersonObjects(withCount: count)
         
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
         let results = try! stack.mainObjectContext.fetch(request)
@@ -56,11 +56,11 @@ class DeleteTests: TestBuilds {
         let predicateValue = 6
 
         let stack = self.dataStack!
-        _ = generatePersonObjects(count: count)
+        _ = generatePersonObjects(withCount: count)
         let myPerson = Person.insertIntoContext(stack.mainObjectContext, firstname: "Charles", surname: "Wilson", age: 10, gender: "male")
         
         // when
-        let predicate = Predicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
+        let predicate = NSPredicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
         let requestSingleObject: NSFetchRequest<Person> = Person.sortedFetchRequest(withPredicate: predicate)
         
         let results = try! stack.mainObjectContext.fetch(requestSingleObject)

@@ -16,11 +16,11 @@ class SaveTests: TestBuilds {
         
         let stack = self.dataStack!
         
-        _ = generatePersonObjects(count: 3)
+        _ = generatePersonObjects(withCount: 3)
         
         var didSaveMain = false
         
-        expectation(forNotification: NSNotification.Name.NSManagedObjectContextDidSave.rawValue, object: stack.mainObjectContext) { (notification) -> Bool in
+        expectation(forNotification: Notification.Name.NSManagedObjectContextDidSave.rawValue, object: stack.mainObjectContext) { (notification) -> Bool in
             didSaveMain =  true
             return true
         }

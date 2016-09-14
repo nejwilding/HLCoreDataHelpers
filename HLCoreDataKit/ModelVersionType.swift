@@ -31,7 +31,7 @@ extension ModelVersionType {
     public var modelURL: URL {
         
         get {
-            guard let url = modelBundle.urlForResource(modelName, withExtension: "momd") else {
+            guard let url = modelBundle.url(forResource: modelName, withExtension: "momd") else {
                 fatalError("*** Error loading model URL for model named \(modelName) bundle: \(modelBundle.bundleIdentifier)")
             }
             return url
