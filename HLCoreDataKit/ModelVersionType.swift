@@ -16,7 +16,7 @@ public protocol ModelVersionType {
 
 extension ModelVersionType {
     
-    var modelBundle: Bundle {
+    public var modelBundle: Bundle {
         return Bundle.main
     }
     
