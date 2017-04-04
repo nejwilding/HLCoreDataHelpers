@@ -25,7 +25,7 @@ class DataStackTests: XCTestCase {
 
     func test_ThatSQLStack_InitializesSuccessfully() {
         
-        let sqlModel = CoreDataModel(modelVersion: ModelVersion.version1, storeType: StoreType.inMemory)
+        let sqlModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType: StoreType.inMemory)
         
         let dataStack = CoreDataStack(model: sqlModel)
         XCTAssertNotNil(dataStack)
@@ -35,7 +35,7 @@ class DataStackTests: XCTestCase {
     }
     
     func test_ThatInMemoryStack_InitializesSuccessfully() {
-        let inMemoryModel = CoreDataModel(modelVersion: ModelVersion.version1, storeType: StoreType.inMemory)
+        let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType: StoreType.inMemory)
         
         let dataStack = CoreDataStack(model: inMemoryModel)
         XCTAssertNotNil(dataStack)

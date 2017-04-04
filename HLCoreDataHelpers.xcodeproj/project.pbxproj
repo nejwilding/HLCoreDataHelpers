@@ -24,7 +24,6 @@
 		40AD8C9E1BB07F36006825EF /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD8C9B1BB07F36006825EF /* CoreDataModel.swift */; };
 		40AD8CAD1BB0882C006825EF /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD8CAC1BB0882C006825EF /* ModelTests.swift */; };
 		40D9FE801D428BB2008DD051 /* InContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D9FE7F1D428BB2008DD051 /* InContextTests.swift */; };
-		40F8B8881D3FDD1200B87160 /* ModelVersionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F8B8871D3FDD1200B87160 /* ModelVersionType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +80,6 @@
 		40AD8C9B1BB07F36006825EF /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		40AD8CAC1BB0882C006825EF /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		40D9FE7F1D428BB2008DD051 /* InContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InContextTests.swift; sourceTree = "<group>"; };
-		40F8B8871D3FDD1200B87160 /* ModelVersionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelVersionType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				40AD8C9A1BB07F36006825EF /* CoreDataStack.swift */,
-				40F8B8871D3FDD1200B87160 /* ModelVersionType.swift */,
 				40AD8C9B1BB07F36006825EF /* CoreDataModel.swift */,
 				40413A061D3F754F00C91E05 /* CoreDataSaveResult.swift */,
 				40286BFD1C5CE7C600C29BED /* StoreType.swift */,
@@ -449,7 +446,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40F8B8881D3FDD1200B87160 /* ModelVersionType.swift in Sources */,
 				40286BFE1C5CE7C600C29BED /* StoreType.swift in Sources */,
 				407F74D81CD398F100E51161 /* NSManagedObjectContext+Extensions.swift in Sources */,
 				40AD8C9E1BB07F36006825EF /* CoreDataModel.swift in Sources */,

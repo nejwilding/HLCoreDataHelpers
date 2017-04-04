@@ -17,7 +17,7 @@ class ModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        model = CoreDataModel(modelVersion: ModelVersion.version1)
+        model = CoreDataModel(name: modelName, bundle: modelBundle)
     }
     
     override func tearDown() {
@@ -28,10 +28,8 @@ class ModelTests: XCTestCase {
 
     func testModelDetails() {
         
-        let version = ModelVersion.version1
-        
-        XCTAssert(model.modelVersion.modelName == version.modelName, "Model name should equal model setting")
-        XCTAssert(model.modelVersion.modelBundle == version.modelBundle, "Should default to main bundle")
+        XCTAssert(model.name == modelName, "Model name should equal model setting")
+        XCTAssert(model.bundle == modelBundle, "Should default to main bundle")
 
         XCTAssertNotNil(model.storeURL)
         
@@ -39,12 +37,12 @@ class ModelTests: XCTestCase {
         XCTAssertEqual(String(storeComponents.last!), model.databaseFileName)
         XCTAssertEqual(String(storeComponents[storeComponents.count - 2]), "Documents")
         
-        let modelURLComponents = model.modelVersion.modelURL.pathComponents
+        let modelURLComponents = model.modelURL.pathComponents
         XCTAssertEqual(String(modelURLComponents.last!), modelName + ".momd")
         
         
         // THEN: the managed object model does not assert
-        XCTAssertNotNil(model.modelVersion.managedObjectModel)
+        XCTAssertNotNil(model.managedObjectModel)
         
         // THEN: the store doesn't need migration
         //XCTAssertFalse(model.needsMigration)

@@ -10,21 +10,4 @@ import Foundation
 @testable import HLCoreDataHelpers
 
 public let modelName = "ExampleModel"
-public let modelBundle =  Bundle(identifier: "cherrycoda.ExampleModel")!
-
-
-
-enum ModelVersion: String {
-    case version1 = "ExampleModel"
-}
-
-extension ModelVersion: ModelVersionType {
-    
-    var modelName: String {
-        return rawValue
-    }
-    
-    var modelBundle: Bundle {
-        return Bundle(identifier: "cherrycoda.ExampleModel")!
-    }
-}
+public let modelBundle = Bundle(identifier: "cherrycoda.ExampleModel")!

@@ -41,7 +41,7 @@ public final class CoreDataStack {
 
         // set up model and persistentStore
         self.model = model
-        self.persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.modelVersion.managedObjectModel)
+        self.persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model.managedObjectModel)
         
         // create child object context to used by public
         mainObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)

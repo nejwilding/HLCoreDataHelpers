@@ -18,19 +18,42 @@ public struct CoreDataModel {
     
     // MARK: - Properties
     
+    /// The name of the Core Data model resource.
+    public let name: String
+    
+    /// The bundle in which the model is located.
+    public let bundle: Bundle
+    
+        /// The type of the Core Data persistent store for the model.
     let storeType: StoreType
-    let modelVersion: ModelVersionType
 
-    //database file
+    /// database file
     public var databaseFileName: String {
         switch storeType {
-        case .sqLite: return "\(modelVersion.modelName).sqlite"
-        default: return modelVersion.modelName
+        case .sqLite: return "\(name).sqlite"
+        default: return name
         }
+    }
+    
+    // model url found by model name
+    public var modelURL: URL {
+        guard let url = bundle.url(forResource: name, withExtension: "momd") else {
+            let desc = String(describing: bundle.bundleURL)
+            fatalError("*** Error loading model URL for model named \(name) bundle: \(desc)")
+        }
+        return url
+    }
+    
+    /// The managed object model for the model specified by `name`.
+    public var managedObjectModel: NSManagedObjectModel {
+        guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("*** Error loading managed object model at url: \(modelURL)")
+        }
+        return model
     }
 
     
-    // store url
+    /// store url
     public var storeURL: URL? {
         return storeType.storeDirectory()?.appendingPathComponent(databaseFileName)
     }
@@ -42,10 +65,13 @@ public struct CoreDataModel {
  
      - Parameter storeDirectoryURL:   Directory in which model is located - Defaults to document directory
     */
-    public init(modelVersion: ModelVersionType, storeType: StoreType = .sqLite(applicationDocumentsDirectory())) {
-        self.storeType = storeType
-        self.modelVersion = modelVersion
+    public init(name: String, bundle: Bundle = Bundle.main, storeType: StoreType = .sqLite (applicationDocumentsDirectory()) ) {
+            self.name = name
+            self.bundle = bundle
+            self.storeType = storeType
     }
+
+    
     
     
     // MARK: - Seed Data

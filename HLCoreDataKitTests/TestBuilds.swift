@@ -17,8 +17,7 @@ class TestBuilds: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let version = ModelVersion.version1
-        let inMemoryModel = CoreDataModel(modelVersion: version, storeType: StoreType.inMemory)
+        let inMemoryModel = CoreDataModel(name: modelName, bundle: modelBundle, storeType: StoreType.inMemory)
         dataStack = CoreDataStack(model: inMemoryModel)
         
     }
