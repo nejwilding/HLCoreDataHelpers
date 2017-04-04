@@ -11,9 +11,10 @@ import CoreData
 open class ManagedObject: NSManagedObject { }
 
 public protocol ManagedObjectType: class {
-    //associatedtype FetchRequestResult: NSFetchRequestResult
     static var defaultSortDescriptors: [NSSortDescriptor] { get }
     static var defaultPredicate: NSPredicate { get }
+    static var remoteUpdatePredicate: NSPredicate { get }
+    
 }
 
 extension ManagedObjectType {
@@ -25,9 +26,18 @@ extension ManagedObjectType {
     public static var defaultPredicate: NSPredicate {
         return NSPredicate(value: true)
     }
+    
+    public static var remoteUpdatePredicate: NSPredicate {
+        return NSPredicate(value: true)
+    }
 }
 
 extension ManagedObjectType {
+    
+    public static func fullFetchRequest<T: NSManagedObject>() -> NSFetchRequest<T> {
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+        return request
+    }
 
     public static func sortedFetchRequest<T: NSManagedObject>() -> NSFetchRequest<T> {
         let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
@@ -35,7 +45,13 @@ extension ManagedObjectType {
         request.sortDescriptors = defaultSortDescriptors
 
         return request
+    }
+    
+    public static func unsortedFetchRequest<T: NSManagedObject>() -> NSFetchRequest<T> {
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+        request.predicate = defaultPredicate
         
+        return request
     }
     
     public static func sortedFetchRequest<T: NSManagedObject>(withPredicate predicate: NSPredicate) -> NSFetchRequest<T> {
@@ -131,5 +147,27 @@ extension ManagedObjectType where Self: ManagedObject {
         return result.first
     }
 
+}
+
+extension ManagedObjectType where Self: ManagedObject {
+    
+    public static func fetchSingleObject(inContext moc: NSManagedObjectContext, cacheKey: String?, configure: (NSFetchRequest<Self>) -> ()) -> Self? {
+        let result = fetchSingleObject(inContext: moc, configure: configure)
+        return result
+        // TOFIX: Cache add
+    }
+    
+    public static func fetchSingleObject(inContext moc: NSManagedObjectContext, configure: (NSFetchRequest<Self>) -> ()) -> Self? {
+        let result = fetch(inContext: moc) { request in
+            configure(request)
+            request.fetchLimit = 1
+        }
+        switch result.count {
+        case 0: return nil
+        case 1: return result[0]
+        default: fatalError("Returned multiple objects, expected max 1")
+        }
+    }
+    
 }
 

@@ -87,7 +87,6 @@ public final class CoreDataStack {
     // MARK: - Managed Object Context Save Notification
     
     @objc func contextDidSaveNotification(notification: Notification) {
-        print("xxxxxxxxxxxxxxxxxxxxx")
 
         guard let context = notification.object as? NSManagedObjectContext else {
             assertionFailure("*** Error \(notification)")
@@ -95,7 +94,6 @@ public final class CoreDataStack {
         }
 
         print(context.registeredObjects.count)
-        print(context.name)
         
         if context !== self.mainObjectContext {
             print("MERGING MERGING - Save Detected Outside Thread Main")

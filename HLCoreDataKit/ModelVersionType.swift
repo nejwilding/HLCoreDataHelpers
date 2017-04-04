@@ -32,7 +32,7 @@ extension ModelVersionType {
         
         get {
             guard let url = modelBundle.url(forResource: modelName, withExtension: "momd") else {
-                fatalError("*** Error loading model URL for model named \(modelName) bundle: \(modelBundle.bundleIdentifier)")
+                fatalError("*** Error loading model URL for model named \(modelName) bundle: \(String(describing: modelBundle.bundleIdentifier))")
             }
             return url
         }

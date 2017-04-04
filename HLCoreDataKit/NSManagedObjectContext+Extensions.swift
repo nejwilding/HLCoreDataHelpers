@@ -28,7 +28,17 @@ extension NSManagedObjectContext {
      - Returns: ManagedObject
      */
     public func insertObject<A: ManagedObject>() -> A where A: ManagedObjectType {
-    	let object = A(context: self)
+        
+        let object: A
+        if #available(iOS 10.0, *) {
+            object = A(context: self)
+        } else {
+            let name =  String(describing: A.self)
+            guard let objectNew = NSEntityDescription.insertNewObject(forEntityName: name, into: self) as? A else {
+                fatalError("Object type \(A.debugDescription()) invalid")
+            }
+            object = objectNew
+        }
         return object
     }
     

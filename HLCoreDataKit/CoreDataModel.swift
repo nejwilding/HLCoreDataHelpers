@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 // Alias for Seed result
-public typealias SeedSaveResult = (success: Bool, error: NSError?)
+public typealias SeedSaveResult = (success: Bool, error: Error?)
 
 /// A Core Data Model representing a given Data Model
 /// Provides the name, its bundle and the store url
@@ -75,7 +75,7 @@ public struct CoreDataModel {
             do {
                 try FileManager.default.copyItem(atPath: preloadPath!, toPath: storeURL.path)
                 completion((true, nil))
-            } catch let error as NSError? {
+            } catch let error as Error? {
                 completion((false, error))
             }
         }
