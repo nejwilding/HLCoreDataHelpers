@@ -80,7 +80,8 @@ extension ManagedObjectType {
 
 extension ManagedObjectType where Self: ManagedObject {
     
-    public static func findOrCreate(inContext moc: NSManagedObjectContext, matchingPredicate predicate: NSPredicate, configure: (Self) -> ()) -> Self {
+    public static func findOrCreate(inContext moc: NSManagedObjectContext,
+                                    matchingPredicate predicate: NSPredicate, configure: (Self) -> Void) -> Self {
         guard let object = findOrFetch(inContext: moc, matchingPredicate: predicate) else {
             let newObject: Self = moc.insertObject()
             configure(newObject)
@@ -92,8 +93,8 @@ extension ManagedObjectType where Self: ManagedObject {
     //TOFIX: swift 3 xcode issue
     public static func findOrFetch(inContext moc: NSManagedObjectContext, matchingPredicate predicate: NSPredicate) -> Self? {
         guard let object = materializedObjectInContext(moc, matchingPredicate: predicate) else {
-            typealias T = Self
-            let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+            typealias Type = Self
+            let request: NSFetchRequest<Type> = NSFetchRequest(entityName: String(describing: Type.self))
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             guard let result = try? moc.fetch(request) else {
@@ -112,19 +113,21 @@ extension ManagedObjectType where Self: ManagedObject {
         return nil
     }
     
-    public static func fetch(inContext moc: NSManagedObjectContext, configurationBlock: (NSFetchRequest<Self>) -> ()) -> [Self] {
+    public static func fetch(inContext moc: NSManagedObjectContext,
+                             configurationBlock: (NSFetchRequest<Self>) -> Void) -> [Self] {
         
-        typealias T = Self
-        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+        typealias Type = Self
+        let request: NSFetchRequest<Type> = NSFetchRequest(entityName: String(describing: Type.self))
         configurationBlock(request)
         guard let result = try? moc.fetch(request) else {
             fatalError("Fetched objects wrong type") }
         return result
    }
     
-    public static func count(inContext moc: NSManagedObjectContext, configurationBlock: (NSFetchRequest<Self>) -> ()) -> Int {
-        typealias T = Self
-        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+    public static func count(inContext moc: NSManagedObjectContext,
+                             configurationBlock: (NSFetchRequest<Self>) -> Void) -> Int {
+        typealias Type = Self
+        let request: NSFetchRequest<Type> = NSFetchRequest(entityName: String(describing: Type.self))
         configurationBlock(request)
 
         do {
@@ -136,9 +139,10 @@ extension ManagedObjectType where Self: ManagedObject {
     }
     
     //TOFIX: swift 3 xcode issue
-    public static func lastModified(inContext moc: NSManagedObjectContext, configurationBlock: (NSFetchRequest<Self>) -> ()) -> Self? {
-        typealias T = Self
-        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
+    public static func lastModified(inContext moc: NSManagedObjectContext,
+                                    configurationBlock: (NSFetchRequest<Self>) -> Void) -> Self? {
+        typealias Type = Self
+        let request: NSFetchRequest<Type> = NSFetchRequest(entityName: String(describing: Type.self))
         request.fetchLimit = 1
         request.returnsObjectsAsFaults = false
         configurationBlock(request)
@@ -151,13 +155,14 @@ extension ManagedObjectType where Self: ManagedObject {
 
 extension ManagedObjectType where Self: ManagedObject {
     
-    public static func fetchSingleObject(inContext moc: NSManagedObjectContext, cacheKey: String?, configure: (NSFetchRequest<Self>) -> ()) -> Self? {
+    public static func fetchSingleObject(inContext moc: NSManagedObjectContext, cacheKey: String?,
+                                         configure: (NSFetchRequest<Self>) -> Void) -> Self? {
         let result = fetchSingleObject(inContext: moc, configure: configure)
         return result
         // TOFIX: Cache add
     }
     
-    public static func fetchSingleObject(inContext moc: NSManagedObjectContext, configure: (NSFetchRequest<Self>) -> ()) -> Self? {
+    public static func fetchSingleObject(inContext moc: NSManagedObjectContext, configure: (NSFetchRequest<Self>) -> Void) -> Self? {
         let result = fetch(inContext: moc) { request in
             configure(request)
             request.fetchLimit = 1
@@ -170,4 +175,3 @@ extension ManagedObjectType where Self: ManagedObject {
     }
     
 }
-

@@ -22,7 +22,10 @@ class DeleteTests: TestBuilds {
         let objects = generatePersonObjects(withCount: count)
         
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
-        let results = try! stack.mainObjectContext.fetch(request)
+        guard let results = try? stack.mainObjectContext.fetch(request) else {
+            fatalError("Resluts could not be unwrapped")
+        }
+
         
         XCTAssertEqual(results.count, predicateValue, "Fetch request should return \(predicateValue) objects")
         
@@ -30,7 +33,10 @@ class DeleteTests: TestBuilds {
         stack.mainObjectContext.deleteObjects(objects)
         
         // get results again
-        let resultsAfterDelete = try! stack.mainObjectContext.fetch(request)
+        guard let resultsAfterDelete = try? stack.mainObjectContext.fetch(request) else {
+            XCTFail("Results could not be unwrapped"); return
+        }
+
         
         XCTAssertEqual(resultsAfterDelete.count, 0, "Fetch request should return 0 objects")
         
@@ -63,18 +69,26 @@ class DeleteTests: TestBuilds {
         let predicate = NSPredicate(format: "%K == [c]%@", Person.Keys.firstname.rawValue, myPerson.firstname!)
         let requestSingleObject: NSFetchRequest<Person> = Person.sortedFetchRequest(withPredicate: predicate)
         
-        let results = try! stack.mainObjectContext.fetch(requestSingleObject)
+        guard let results = try? stack.mainObjectContext.fetch(requestSingleObject) else {
+            XCTFail("Results could not be unwrapped"); return
+        }
         XCTAssertEqual(results.count, 1, "Fetch should return just one result")
         
         // delete object
         stack.mainObjectContext.deleteObjects([myPerson])
         
         let request: NSFetchRequest<Person> = Person.sortedFetchRequest()
-        let resultsAfterDelete = try! stack.mainObjectContext.fetch(request)
+        guard let resultsAfterDelete = try? stack.mainObjectContext.fetch(request) else {
+            XCTFail("Results could not be unwrapped"); return
+        }
+
         
         XCTAssertEqual(resultsAfterDelete.count, predicateValue, "New results count should equal \(count )")
         
-        let resultOfObjectAfterDelete = try! stack.mainObjectContext.fetch(requestSingleObject)
+        guard let resultOfObjectAfterDelete = try? stack.mainObjectContext.fetch(requestSingleObject) else {
+            XCTFail("Results could not be unwrapped"); return
+        }
+
         
         XCTAssertEqual(resultOfObjectAfterDelete.count, 0, "Predicate Fetch should now return 0 results")
 

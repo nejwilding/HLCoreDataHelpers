@@ -9,5 +9,5 @@
 import Foundation
 
 public enum ModelName: String {
-    case Person = "PersonModel"
+    case person = "PersonModel"
 }

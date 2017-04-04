@@ -41,23 +41,20 @@ extension CoreDataSaveResult: CustomStringConvertible {
     
     /// description
     public var description: String {
-        get {
-            var str = "<\(CoreDataSaveResult.self):"
-            switch self {
-            case .success:
-                str += ".Success"
-            case .failure(let error):
-                str += ".Failure \(error)"
-            }
-            return str + ">"
+        var str = "<\(CoreDataSaveResult.self):"
+        switch self {
+        case .success:
+            str += ".Success"
+        case .failure(let error):
+            str += ".Failure \(error)"
         }
+        return str + ">"
     }
 }
 
-
 // MARK: - Equatable
 
-public func ==(lhs: CoreDataSaveResult, rhs: CoreDataSaveResult) -> Bool {
+public func == (lhs: CoreDataSaveResult, rhs: CoreDataSaveResult) -> Bool {
     switch(lhs, rhs) {
     case (.success, .success):
         return true
@@ -67,4 +64,3 @@ public func ==(lhs: CoreDataSaveResult, rhs: CoreDataSaveResult) -> Bool {
         return false
     }
 }
-

@@ -31,7 +31,7 @@ class ModelTests: XCTestCase {
         let version = ModelVersion.version1
         
         XCTAssert(model.modelVersion.modelName == version.modelName, "Model name should equal model setting")
-        XCTAssert(model.modelVersion.modelBundle == version.modelBundle , "Should default to main bundle")
+        XCTAssert(model.modelVersion.modelBundle == version.modelBundle, "Should default to main bundle")
 
         XCTAssertNotNil(model.storeURL)
         

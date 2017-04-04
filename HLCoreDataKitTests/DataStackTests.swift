@@ -29,7 +29,8 @@ class DataStackTests: XCTestCase {
         
         let dataStack = CoreDataStack(model: sqlModel)
         XCTAssertNotNil(dataStack)
-        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
+        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType,
+                       NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
         
     }
     
@@ -38,10 +39,10 @@ class DataStackTests: XCTestCase {
         
         let dataStack = CoreDataStack(model: inMemoryModel)
         XCTAssertNotNil(dataStack)
-        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType, NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
+        XCTAssertEqual(dataStack.mainObjectContext.concurrencyType,
+                       NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType, "Main context should be primary context")
         
     }
 
 
 }
-

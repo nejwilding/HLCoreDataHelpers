@@ -21,25 +21,19 @@ public struct CoreDataModel {
     let storeType: StoreType
     let modelVersion: ModelVersionType
 
-    
     //database file
     public var databaseFileName: String {
-        get {
-            switch storeType {
-            case .sqLite: return "\(modelVersion.modelName).sqlite"
-            default: return modelVersion.modelName
-            }
-            
+        switch storeType {
+        case .sqLite: return "\(modelVersion.modelName).sqlite"
+        default: return modelVersion.modelName
         }
     }
+
     
     // store url
     public var storeURL: URL? {
-        get {
-            return storeType.storeDirectory()?.appendingPathComponent(databaseFileName)
-        }
+        return storeType.storeDirectory()?.appendingPathComponent(databaseFileName)
     }
-    
 
     /**
      Creates new model with specified name and bundle
@@ -62,7 +56,7 @@ public struct CoreDataModel {
      - Parameter name"        Name of seed file
      - Parameter completion"  Closure block returning results of success or failure
      */
-    public func seedExistingModelStore(_ name: String, completion:(SeedSaveResult) -> Void) {
+    public func seedExistingModelStore(_ name: String, completion: (SeedSaveResult) -> Void) {
         
         guard let storeURL = storeURL else {
             return
@@ -88,12 +82,10 @@ public struct CoreDataModel {
 private func applicationDocumentsDirectory() -> URL {
     
     do {
-        return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask,
+                                           appropriateFor: nil, create: true)
     } catch {
         fatalError("***** Error find documents directory")
     }
     
 }
-
-
-

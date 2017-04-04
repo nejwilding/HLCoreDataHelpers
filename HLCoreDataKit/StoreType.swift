@@ -28,12 +28,10 @@ public enum StoreType {
     //
     // returns: The type of store description
     public var type: String {
-        get {
-            switch self {
-            case .sqLite: return NSSQLiteStoreType
-            case .binary: return NSBinaryStoreType
-            case .inMemory: return NSInMemoryStoreType
-            }
+        switch self {
+        case .sqLite: return NSSQLiteStoreType
+        case .binary: return NSBinaryStoreType
+        case .inMemory: return NSInMemoryStoreType
         }
     }
     

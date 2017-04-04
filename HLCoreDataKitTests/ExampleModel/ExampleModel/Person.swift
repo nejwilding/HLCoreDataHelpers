@@ -18,11 +18,8 @@ public class Person: ManagedObject {
         age = 99
     }
     
-    open static func insertIntoContext(_ moc: NSManagedObjectContext,
-                                         firstname: String,
-                                         surname: String,
-                                         age: Int,
-                                         gender: String) -> Person {
+    open static func insertIntoContext(_ moc: NSManagedObjectContext, firstname: String, surname: String,
+                                       age: Int, gender: String) -> Person {
         
         let person: Person = Person(context:moc)
         person.firstname = firstname
@@ -56,4 +53,3 @@ extension Person {
         case gender
     }
 }
-

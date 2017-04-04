@@ -20,7 +20,8 @@ class SaveTests: TestBuilds {
         
         var didSaveMain = false
         
-        expectation(forNotification: Notification.Name.NSManagedObjectContextDidSave.rawValue, object: stack.mainObjectContext) { (notification) -> Bool in
+        expectation(forNotification: Notification.Name.NSManagedObjectContextDidSave.rawValue,
+                    object: stack.mainObjectContext) { _ in
             didSaveMain =  true
             return true
         }
@@ -46,7 +47,7 @@ class SaveTests: TestBuilds {
         let stack = self.dataStack!
         var didCallCompletion  = false
         
-        stack.mainObjectContext.perform { result in
+        stack.mainObjectContext.perform { _ in
             didCallCompletion = true
         }
         

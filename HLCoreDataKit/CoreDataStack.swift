@@ -36,7 +36,8 @@ public final class CoreDataStack {
  
     -Returns: A new CoreDataStack
     */
-    public init(model: CoreDataModel, concurrentType : NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType) {
+    public init(model: CoreDataModel,
+                concurrentType: NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType) {
 
         // set up model and persistentStore
         self.model = model
@@ -51,12 +52,14 @@ public final class CoreDataStack {
         NSInferMappingModelAutomaticallyOption: true]
         
         do {
-            try self.persistentStoreCoordinator.addPersistentStore(ofType: model.storeType.type, configurationName: nil, at: model.storeURL, options: options)
+            try self.persistentStoreCoordinator.addPersistentStore(ofType: model.storeType.type,
+                                                                   configurationName: nil, at: model.storeURL, options: options)
         } catch let error as NSError {
             assertionFailure("*** Error adding persistent store \(error)")
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(CoreDataStack.contextDidSaveNotification(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CoreDataStack.contextDidSaveNotification(notification:)),
+                                               name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
     }
     
     deinit {
@@ -74,7 +77,9 @@ public final class CoreDataStack {
 
     - Returns: A new managed object context which is a child
      */
-    public func childManagedObjectContext(_ concurrenyType: NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType, mergePolicyType: NSMergePolicyType = .mergeByPropertyObjectTrumpMergePolicyType) -> ChildManagedObjectContact {
+    public func childManagedObjectContext(_ concurrenyType: NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType,
+                                          mergePolicyType: NSMergePolicyType = .mergeByPropertyObjectTrumpMergePolicyType)
+        -> ChildManagedObjectContact {
         
         let childManagedObjectContext = NSManagedObjectContext(concurrencyType: concurrenyType)
         childManagedObjectContext.parent = mainObjectContext

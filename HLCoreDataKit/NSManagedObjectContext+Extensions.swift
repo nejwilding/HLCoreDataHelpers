@@ -60,7 +60,7 @@ extension NSManagedObjectContext {
     /**
      Perform block function and save
      */
-    public func performChanges(_ block: @escaping () -> ()) {
+    public func performChanges(_ block: @escaping () -> Void) {
         perform {
             block()
             _ = self.saveOrRollback()
@@ -86,7 +86,7 @@ extension NSManagedObjectContext {
     ///
     /// :param: objects     The objets that are to be delted
     /// :param: inContext   The managed object context to delete them from
-    public func deleteObjects <T: NSManagedObject>(_ objects:[T]) {
+    public func deleteObjects <T: NSManagedObject>(_ objects: [T]) {
         
         guard objects.count > 0 else {
             return

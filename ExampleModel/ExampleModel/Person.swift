@@ -9,16 +9,15 @@
 import Foundation
 import CoreData
 
-
 public class Person: NSManagedObject {
     
     internal static let modelEntityName = String(self)
 
     private convenience init(context: NSManagedObjectContext,
-        firstname: String,
-        surname: String,
-        age: Int,
-        gender: String) {
+                             firstname: String,
+                             surname: String,
+                             age: Int,
+                             gender: String) {
             
             let entity = NSEntityDescription.entityForName(Person.modelEntityName, inManagedObjectContext: context)!
             
@@ -28,12 +27,11 @@ public class Person: NSManagedObject {
             self.surname = surname
             self.age = age
             self.gender = gender
-            
-            
+        
     }
     
-    
-    class func newPerson(context: NSManagedObjectContext, firstname: String, surname: String, age: Int, gender: String) -> Person {
+    class func newPerson(context: NSManagedObjectContext, firstname: String, surname: String,
+                         age: Int, gender: String) -> Person {
         
         return Person(context: context, firstname: firstname, surname: surname, age: age, gender: gender)
     }
