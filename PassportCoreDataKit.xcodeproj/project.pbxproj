@@ -19,8 +19,7 @@
 		407F74D81CD398F100E51161 /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407F74D71CD398F100E51161 /* NSManagedObjectContext+Extensions.swift */; };
 		409873A41D251EAC0033AA6B /* ExampleModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40286BF21C5CE34200C29BED /* ExampleModel.framework */; };
 		409873A61D251FDC0033AA6B /* TestBuilds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405E7A481C5D0A3D00235FF4 /* TestBuilds.swift */; };
-		40AD8C8B1BB07EDB006825EF /* HLCoreDataHelpers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40AD8C801BB07EDB006825EF /* HLCoreDataHelpers.framework */; };
-		40AD8C9D1BB07F36006825EF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD8C9A1BB07F36006825EF /* CoreDataStack.swift */; };
+		40AD8C8B1BB07EDB006825EF /* PassportCoreDataKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40AD8C801BB07EDB006825EF /* PassportCoreDataKit.framework */; };
 		40AD8C9E1BB07F36006825EF /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD8C9B1BB07F36006825EF /* CoreDataModel.swift */; };
 		40AD8CAD1BB0882C006825EF /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AD8CAC1BB0882C006825EF /* ModelTests.swift */; };
 		40D9FE801D428BB2008DD051 /* InContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D9FE7F1D428BB2008DD051 /* InContextTests.swift */; };
@@ -72,11 +71,10 @@
 		405E7A4B1C5D0CD600235FF4 /* FetchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchTests.swift; sourceTree = "<group>"; };
 		407F74CF1CD380E800E51161 /* ManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObject.swift; sourceTree = "<group>"; };
 		407F74D71CD398F100E51161 /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
-		40AD8C801BB07EDB006825EF /* HLCoreDataHelpers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HLCoreDataHelpers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40AD8C801BB07EDB006825EF /* PassportCoreDataKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PassportCoreDataKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AD8C851BB07EDB006825EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40AD8C8A1BB07EDB006825EF /* HLCoreDataHelpersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLCoreDataHelpersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40AD8C8A1BB07EDB006825EF /* PassportCoreDataKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassportCoreDataKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AD8C911BB07EDB006825EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40AD8C9A1BB07F36006825EF /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		40AD8C9B1BB07F36006825EF /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		40AD8CAC1BB0882C006825EF /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		40D9FE7F1D428BB2008DD051 /* InContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InContextTests.swift; sourceTree = "<group>"; };
@@ -116,7 +114,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				409873A41D251EAC0033AA6B /* ExampleModel.framework in Frameworks */,
-				40AD8C8B1BB07EDB006825EF /* HLCoreDataHelpers.framework in Frameworks */,
+				40AD8C8B1BB07EDB006825EF /* PassportCoreDataKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +140,8 @@
 		40AD8C761BB07EDB006825EF = {
 			isa = PBXGroup;
 			children = (
-				40AD8C821BB07EDB006825EF /* HLCoreDataHelpers */,
-				40AD8C8E1BB07EDB006825EF /* HLCoreDataHelpersTests */,
+				40AD8C821BB07EDB006825EF /* PassportCoreDataKit */,
+				40AD8C8E1BB07EDB006825EF /* PassportCoreDataKitTests */,
 				40AD8C811BB07EDB006825EF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -151,8 +149,8 @@
 		40AD8C811BB07EDB006825EF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				40AD8C801BB07EDB006825EF /* HLCoreDataHelpers.framework */,
-				40AD8C8A1BB07EDB006825EF /* HLCoreDataHelpersTests.xctest */,
+				40AD8C801BB07EDB006825EF /* PassportCoreDataKit.framework */,
+				40AD8C8A1BB07EDB006825EF /* PassportCoreDataKitTests.xctest */,
 				40286AFA1C5CD9FB00C29BED /* ExampleNodel.app */,
 				40286B101C5CD9FB00C29BED /* ExampleNodelTests.xctest */,
 				40286B1B1C5CD9FB00C29BED /* ExampleNodelUITests.xctest */,
@@ -160,10 +158,9 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		40AD8C821BB07EDB006825EF /* HLCoreDataHelpers */ = {
+		40AD8C821BB07EDB006825EF /* PassportCoreDataKit */ = {
 			isa = PBXGroup;
 			children = (
-				40AD8C9A1BB07F36006825EF /* CoreDataStack.swift */,
 				40AD8C9B1BB07F36006825EF /* CoreDataModel.swift */,
 				40413A061D3F754F00C91E05 /* CoreDataSaveResult.swift */,
 				40286BFD1C5CE7C600C29BED /* StoreType.swift */,
@@ -171,11 +168,10 @@
 				407F74D71CD398F100E51161 /* NSManagedObjectContext+Extensions.swift */,
 				40AD8C851BB07EDB006825EF /* Info.plist */,
 			);
-			name = HLCoreDataHelpers;
-			path = HLCoreDataKit;
+			path = PassportCoreDataKit;
 			sourceTree = "<group>";
 		};
-		40AD8C8E1BB07EDB006825EF /* HLCoreDataHelpersTests */ = {
+		40AD8C8E1BB07EDB006825EF /* PassportCoreDataKitTests */ = {
 			isa = PBXGroup;
 			children = (
 				40286BED1C5CE34100C29BED /* ExampleModel.xcodeproj */,
@@ -189,8 +185,7 @@
 				40413A091D3F793D00C91E05 /* CoreDataSaveResultTests.swift */,
 				40D9FE7F1D428BB2008DD051 /* InContextTests.swift */,
 			);
-			name = HLCoreDataHelpersTests;
-			path = HLCoreDataKitTests;
+			path = PassportCoreDataKitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +254,9 @@
 			productReference = 40286B1B1C5CD9FB00C29BED /* ExampleNodelUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		40AD8C7F1BB07EDB006825EF /* HLCoreDataHelpers */ = {
+		40AD8C7F1BB07EDB006825EF /* PassportCoreDataKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 40AD8C941BB07EDB006825EF /* Build configuration list for PBXNativeTarget "HLCoreDataHelpers" */;
+			buildConfigurationList = 40AD8C941BB07EDB006825EF /* Build configuration list for PBXNativeTarget "PassportCoreDataKit" */;
 			buildPhases = (
 				40AD8C7B1BB07EDB006825EF /* Sources */,
 				40AD8C7C1BB07EDB006825EF /* Frameworks */,
@@ -273,14 +268,14 @@
 			);
 			dependencies = (
 			);
-			name = HLCoreDataHelpers;
+			name = PassportCoreDataKit;
 			productName = HLCoreDataKit;
-			productReference = 40AD8C801BB07EDB006825EF /* HLCoreDataHelpers.framework */;
+			productReference = 40AD8C801BB07EDB006825EF /* PassportCoreDataKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		40AD8C891BB07EDB006825EF /* HLCoreDataHelpersTests */ = {
+		40AD8C891BB07EDB006825EF /* PassportCoreDataKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 40AD8C971BB07EDB006825EF /* Build configuration list for PBXNativeTarget "HLCoreDataHelpersTests" */;
+			buildConfigurationList = 40AD8C971BB07EDB006825EF /* Build configuration list for PBXNativeTarget "PassportCoreDataKitTests" */;
 			buildPhases = (
 				40AD8C861BB07EDB006825EF /* Sources */,
 				40AD8C871BB07EDB006825EF /* Frameworks */,
@@ -291,9 +286,9 @@
 			dependencies = (
 				40AD8C8D1BB07EDB006825EF /* PBXTargetDependency */,
 			);
-			name = HLCoreDataHelpersTests;
+			name = PassportCoreDataKitTests;
 			productName = HLCoreDataKitTests;
-			productReference = 40AD8C8A1BB07EDB006825EF /* HLCoreDataHelpersTests.xctest */;
+			productReference = 40AD8C8A1BB07EDB006825EF /* PassportCoreDataKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -327,7 +322,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 40AD8C7A1BB07EDB006825EF /* Build configuration list for PBXProject "HLCoreDataHelpers" */;
+			buildConfigurationList = 40AD8C7A1BB07EDB006825EF /* Build configuration list for PBXProject "PassportCoreDataKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -346,8 +341,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				40AD8C7F1BB07EDB006825EF /* HLCoreDataHelpers */,
-				40AD8C891BB07EDB006825EF /* HLCoreDataHelpersTests */,
+				40AD8C7F1BB07EDB006825EF /* PassportCoreDataKit */,
+				40AD8C891BB07EDB006825EF /* PassportCoreDataKitTests */,
 				40286AF91C5CD9FB00C29BED /* ExampleNodel */,
 				40286B0F1C5CD9FB00C29BED /* ExampleNodelTests */,
 				40286B1A1C5CD9FB00C29BED /* ExampleNodelUITests */,
@@ -450,7 +445,6 @@
 				407F74D81CD398F100E51161 /* NSManagedObjectContext+Extensions.swift in Sources */,
 				40AD8C9E1BB07F36006825EF /* CoreDataModel.swift in Sources */,
 				407F74D01CD380E800E51161 /* ManagedObject.swift in Sources */,
-				40AD8C9D1BB07F36006825EF /* CoreDataStack.swift in Sources */,
 				40413A071D3F754F00C91E05 /* CoreDataSaveResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,7 +479,7 @@
 		};
 		40AD8C8D1BB07EDB006825EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 40AD8C7F1BB07EDB006825EF /* HLCoreDataHelpers */;
+			target = 40AD8C7F1BB07EDB006825EF /* PassportCoreDataKit */;
 			targetProxy = 40AD8C8C1BB07EDB006825EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -670,11 +664,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = HLCoreDataKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PassportCoreDataKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.perfectarc.HLCoreDataHelpers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.perfectarc.PassportCoreDataKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -691,11 +685,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = HLCoreDataKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/PassportCoreDataKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.perfectarc.HLCoreDataHelpers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.perfectarc.PassportCoreDataKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -761,7 +755,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		40AD8C7A1BB07EDB006825EF /* Build configuration list for PBXProject "HLCoreDataHelpers" */ = {
+		40AD8C7A1BB07EDB006825EF /* Build configuration list for PBXProject "PassportCoreDataKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				40AD8C921BB07EDB006825EF /* Debug */,
@@ -770,7 +764,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		40AD8C941BB07EDB006825EF /* Build configuration list for PBXNativeTarget "HLCoreDataHelpers" */ = {
+		40AD8C941BB07EDB006825EF /* Build configuration list for PBXNativeTarget "PassportCoreDataKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				40AD8C951BB07EDB006825EF /* Debug */,
@@ -779,7 +773,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		40AD8C971BB07EDB006825EF /* Build configuration list for PBXNativeTarget "HLCoreDataHelpersTests" */ = {
+		40AD8C971BB07EDB006825EF /* Build configuration list for PBXNativeTarget "PassportCoreDataKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				40AD8C981BB07EDB006825EF /* Debug */,

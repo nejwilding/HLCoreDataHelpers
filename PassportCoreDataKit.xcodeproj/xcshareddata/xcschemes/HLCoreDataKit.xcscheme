@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "40AD8C7F1BB07EDB006825EF"
-               BuildableName = "HLCoreDataHelpers.framework"
-               BlueprintName = "HLCoreDataHelpers"
-               ReferencedContainer = "container:HLCoreDataHelpers.xcodeproj">
+               BuildableName = "PassportCoreDataKit.framework"
+               BlueprintName = "PassportCoreDataKit"
+               ReferencedContainer = "container:PassportCoreDataKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "40AD8C891BB07EDB006825EF"
-               BuildableName = "HLCoreDataHelpersTests.xctest"
-               BlueprintName = "HLCoreDataHelpersTests"
-               ReferencedContainer = "container:HLCoreDataHelpers.xcodeproj">
+               BuildableName = "PassportCoreDataKitTests.xctest"
+               BlueprintName = "PassportCoreDataKitTests"
+               ReferencedContainer = "container:PassportCoreDataKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40AD8C7F1BB07EDB006825EF"
-            BuildableName = "HLCoreDataHelpers.framework"
-            BlueprintName = "HLCoreDataHelpers"
-            ReferencedContainer = "container:HLCoreDataHelpers.xcodeproj">
+            BuildableName = "PassportCoreDataKit.framework"
+            BlueprintName = "PassportCoreDataKit"
+            ReferencedContainer = "container:PassportCoreDataKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40AD8C7F1BB07EDB006825EF"
-            BuildableName = "HLCoreDataHelpers.framework"
-            BlueprintName = "HLCoreDataHelpers"
-            ReferencedContainer = "container:HLCoreDataHelpers.xcodeproj">
+            BuildableName = "PassportCoreDataKit.framework"
+            BlueprintName = "PassportCoreDataKit"
+            ReferencedContainer = "container:PassportCoreDataKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -84,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "40AD8C7F1BB07EDB006825EF"
-            BuildableName = "HLCoreDataHelpers.framework"
-            BlueprintName = "HLCoreDataHelpers"
-            ReferencedContainer = "container:HLCoreDataHelpers.xcodeproj">
+            BuildableName = "PassportCoreDataKit.framework"
+            BlueprintName = "PassportCoreDataKit"
+            ReferencedContainer = "container:PassportCoreDataKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
